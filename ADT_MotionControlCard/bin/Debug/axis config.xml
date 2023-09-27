@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="gb2312"?>
+<NcConfig version="1.0">
+    <AxisResSum AxisSum="2">
+        <EMStop enable="1" IoNode="1" IoIdx="0" logic="0" admode="1"/>
+        <AxisLmt axis="1">
+            <LmtPos enable="1" IoNode="1" IoIdx="0" logic="0" admode="1"/>
+            <LmtNeg enable="1" IoNode="1" IoIdx="0" logic="0" admode="1"/>
+            <LmtOrg enable="1" IoNode="1" IoIdx="0" logic="0" admode="0"/>
+            <LmtSoft enable="0" SoftPos="0" SoftNeg="0" admode="0"/>
+        </AxisLmt>
+        <AxisLmt axis="2">
+            <LmtPos enable="0" IoNode="0" IoIdx="0" logic="0" admode="0"/>
+            <LmtNeg enable="0" IoNode="0" IoIdx="1" logic="0" admode="0"/>
+            <LmtOrg enable="0" IoNode="0" IoIdx="2" logic="0" admode="0"/>
+            <LmtSoft enable="0" SoftPos="0" SoftNeg="0" admode="0"/>
+        </AxisLmt>
+    </AxisResSum>
+</NcConfig>

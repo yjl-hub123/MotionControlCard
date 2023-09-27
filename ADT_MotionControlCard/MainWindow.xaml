@@ -1,0 +1,495 @@
+﻿<Window x:Class="ADT_MotionControlCard.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ADT_MotionControlCard"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="800" Width="900"
+         WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="90"></RowDefinition>
+            <RowDefinition Height="80"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Text="控制卡实例程序" FontSize="25" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+        <StackPanel HorizontalAlignment="Right" Margin="0,10,20,10">
+            <StackPanel Orientation="Horizontal" >
+                <TextBlock Text="可用控制卡索引" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <ComboBox Width="70" Margin="10,0,0,0" x:Name="cbbCard" SelectionChanged="cbbCard_SelectedIndexChanged"></ComboBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                <TextBlock Text="版本信息：         " FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                <TextBlock Width="120" x:Name="lblVersion"></TextBlock>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button Width="100" Height="40" Content="控制卡初始化" FontSize="14" Margin="20,0,0,0" Click="Init"></Button>
+            <Button Width="100" Height="40" Content="控制卡关闭" FontSize="14" Margin="20,0,0,0" Click="Close_Click"></Button>
+            <Button Width="100" Height="40" Content="控制卡复位" FontSize="14" Margin="20,0,0,0" Click="Reset_Click"></Button>
+            <Button Width="100" Height="40" Content="所有轴使能" FontSize="14" Margin="80,0,0,0" Click="AllEnable_Click"></Button>
+            <Button Width="100" Height="40" Content="所有轴断使能" FontSize="14" Margin="20,0,0,0" Click="AllDisnable_Click"></Button>
+            <Button Width="100" Height="40" Content="轴信息监控" FontSize="14" Margin="80,0,0,0" Click="Status_Click"></Button>
+        </StackPanel>
+        <TabControl Grid.Row="2" Margin="5">
+            <TabItem Header="轴参数配置" FontSize="14">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="100"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel VerticalAlignment="Center" Orientation="Horizontal" Margin="20,0,0,0" Grid.ColumnSpan="3">
+                        <TextBlock Text="轴号    " FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <ComboBox Width="70" Height="20" x:Name="AxisNum" SelectionChanged="cbxAxis_SelectedIndexChanged"></ComboBox>
+                        <TextBlock Text="提示：轴号从1开始" FontSize="14" Margin="20,0,0,0" Background="GreenYellow" Height="20"></TextBlock>
+                        <Button Content=" 当前轴使能 " Height="30" Margin="70,0,0,0" Click="Enable_Click"></Button>
+                        <Button Content="当前轴去使能" Height="30" Margin="30,0,0,0" Click="Disnable_Click"></Button>
+                    </StackPanel>
+                    <GroupBox Header="硬件正限位" Margin="5,5,5,5" Grid.Row="1" Grid.ColumnSpan="3">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,0,0">
+                            <CheckBox Content="有效" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="cbxLmtp"></CheckBox>
+                            <TextBlock Text="节点号： " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
+                            <ComboBox Width="70" Height="20" x:Name="cbxNodeLP"></ComboBox>
+                            <TextBlock Text="端口号： " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
+                            <ComboBox Width="70" Height="20"  x:Name="cbxPortLP"></ComboBox>
+                            <TextBlock Text="有效电平： " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
+                            <ComboBox Width="80" Height="25" x:Name="cbxLevelLP"></ComboBox>
+                            <TextBlock Text="停止模式： " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
+                            <ComboBox Width="87" Height="25" x:Name="cbxAdmodeLP"></ComboBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="硬件负限位" Margin="5,5,5,5" Grid.Row="2" Grid.ColumnSpan="3">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,0,0">
+                            <CheckBox Content="有效" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="cbxLmtn"></CheckBox>
+                            <TextBlock Text="节点号： " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
+                            <ComboBox Width="70" Height="20" x:Name="cbxNodeLN"></ComboBox>
+                            <TextBlock Text="端口号： " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
+                            <ComboBox Width="70" Height="20" x:Name="cbxPortLN"></ComboBox>
+                            <TextBlock Text="有效电平： " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
+                            <ComboBox Width="80" Height="25" x:Name="cbxLevelLN"></ComboBox>
+                            <TextBlock Text="停止模式： " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
+                            <ComboBox Width="87" Height="25" x:Name="cbxAdmodeLN"></ComboBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="机械原点" Margin="5,5,5,5" Grid.Row="3" Grid.ColumnSpan="3">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,0,0">
+                            <CheckBox Content="有效" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="cbxStop0"></CheckBox>
+                            <TextBlock Text="节点号： " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
+                            <ComboBox Width="70" Height="20" x:Name="cbxNodeSTOP0"></ComboBox>
+                            <TextBlock Text="端口号： " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
+                            <ComboBox Width="70" Height="20" x:Name="cbxPortSTOP0"></ComboBox>
+                            <TextBlock Text="有效电平： " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
+                            <ComboBox Width="80" Height="25" x:Name="cbxLevelSTOP0"></ComboBox>
+                            <TextBlock Text="停止模式： " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
+                            <ComboBox Width="87" Height="25" x:Name="cbxAdmodeSTOP0"></ComboBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="硬件停止" Margin="5,5,5,5" Grid.Row="4" Grid.ColumnSpan="3">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,0,0">
+                            <CheckBox Content="有效" HorizontalAlignment="Center" VerticalAlignment="Center" x:Name="cbxEmgn"></CheckBox>
+                            <TextBlock Text="节点号： " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
+                            <ComboBox Width="70" Height="20" x:Name="cbxNodeEmg"></ComboBox>
+                            <TextBlock Text="端口号： " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
+                            <ComboBox Width="70" Height="20" x:Name="cbxPortEmg"></ComboBox>
+                            <TextBlock Text="有效电平： " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
+                            <ComboBox Width="80" Height="25" x:Name="cbxLevelEmg"></ComboBox>
+                            <TextBlock Text="停止模式： " HorizontalAlignment="Center" VerticalAlignment="Center" Margin="50,0,0,0"></TextBlock>
+                            <ComboBox Width="87" Height="25" x:Name="cbxAdmodeEmg"></ComboBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <TextBlock Grid.Row="5" Text="提示" FontSize="14" Margin="5,5,5,5" Grid.ColumnSpan="3"></TextBlock>
+                    <GroupBox Header="位置编程" FontSize="14" Margin="5,5,5,5" Grid.Row="6" Grid.ColumnSpan="3">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="编程模式：" Margin="5"></TextBlock>
+                                <ComboBox Width="120" Height="25" x:Name="cbxUnitMode"></ComboBox>
+                                <TextBlock Text="脉冲当量：" Margin="50,5,5,5"></TextBlock>
+                                <TextBox Width="100" Height="20" x:Name="tbxEquiv" Text="100"></TextBox>
+                                <TextBlock Text="电子齿轮比：" Margin="50,5,5,5"></TextBlock>
+                                <ComboBox Width="100" Height="20" x:Name="cbxEncode"></ComboBox>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                <TextBlock Text="丝杠传动：" Margin="5"></TextBlock>
+                                <TextBox Width="120" Height="25" x:Name="cbxLeadRatio" Text="10"></TextBox>
+                                <TextBlock Text="减速比：   " Margin="50,5,5,5"></TextBlock>
+                                <TextBox Width="100" Height="20" x:Name="tbxReductionRatio" Text="1"></TextBox>
+                                <TextBlock Text="              ：   " Margin="50,5,5,5"></TextBlock>
+                                <TextBox Width="100" Height="20" x:Name="tbxElec" Text="1" IsReadOnly="True"></TextBox>
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="软件限位" FontSize="14" Margin="5,5,5,5" Grid.Row="7" Grid.ColumnSpan="3">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <CheckBox Content="有效" Margin="5" VerticalAlignment="Center" HorizontalAlignment="Center" x:Name="cbxSoftlm"></CheckBox>
+                            <TextBlock Text="正限位：" Margin="40,5,5,5" ></TextBlock>
+                            <TextBox Width="100" Height="20" x:Name="tbxSoftP"></TextBox>
+                            <TextBlock Text="负限位：" Margin="40,5,5,5" ></TextBlock>
+                            <TextBox Width="100" Height="20" x:Name="tbxSoftM"></TextBox>
+                            <TextBlock Text="停止模式  " Margin="40,5,5,5" ></TextBlock>
+                            <ComboBox Width="100" Height="25" x:Name="tbxAdmode"></ComboBox>
+                        </StackPanel>
+                    </GroupBox>
+                    <StackPanel Grid.Row="8" Orientation="Horizontal" Margin="10,10,10,10" Grid.ColumnSpan="3">
+                        <TextBlock Text="提示：配置文件导入/导出路径默认为当前程序可执行文件同级目录下的  axis config.xml" FontSize="14" Width="400" TextWrapping="Wrap" Background="GreenYellow"></TextBlock>
+                        <Button Content="应用配置" Height="40" Width="80" FontSize="14" Margin="140,0,0,0" Click="Apply_Click"></Button>
+                        <Button Content="读取配置" Height="40" Width="80" FontSize="14" Margin="30,0,0,0" Click="ReadXml_Click"></Button>
+                        <Button Content="保存配置" Height="40" Width="80" FontSize="14" Margin="30,0,0,0" Click="WriteXml_Click"></Button>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="基本驱动" FontSize="14">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="29*"/>
+                        <ColumnDefinition Width="135*"/>
+                        <ColumnDefinition Width="278*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <DataGrid ItemsSource="{Binding axes}" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" ColumnWidth="*" x:Name="lsvDrive" MouseDoubleClick="DataGrid_MouseDoubleClick" Grid.ColumnSpan="3" Margin="0,0,0,50" Grid.RowSpan="2"
+                               Background="Transparent" 
+                                SnapsToDevicePixels="True" 
+                                UseLayoutRounding="True"
+                                VirtualizingStackPanel.IsVirtualizing="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="轴号" Binding="{Binding axiss}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridCheckBoxColumn Header="是否选中" Binding="{Binding IsSelected}"></DataGridCheckBoxColumn>
+                            <DataGridTextColumn Header="起始速度" Binding="{Binding InitialSpeed}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="最大速度" Binding="{Binding MaxSpeed}" IsReadOnly="True">
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="HorizontalAlignment" Value="Left"/>
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="加速度" Binding="{Binding Acceleration}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="减速度" Binding="{Binding Deceleration}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="加减速模式" Binding="{Binding AccelerationDecelerationMode}" IsReadOnly="True"></DataGridTextColumn>
+                            <DataGridTextColumn Header="目标位置" Binding="{Binding TargetPosition}" IsReadOnly="True"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="5,0,0,0" Grid.ColumnSpan="3">
+                        <CheckBox Content="全选"></CheckBox>
+                        <TextBlock Text="提示：双击可以修改" Margin="680,0,0,0"></TextBlock>
+                    </StackPanel>
+                    <Grid Grid.Row="2" Grid.ColumnSpan="3" Margin="0,0,0,175" Grid.RowSpan="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button Content="点位驱动" FontSize="14" Width="100" Height="35" Click="Drive_Click"></Button>
+                                <Button Content="直线插补" FontSize="14" Width="100" Height="35" Margin="10,0,0,0"></Button>
+                            </StackPanel>
+                            <GroupBox Grid.Row="1" Header="JOG" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Content="+" FontSize="20" Width="100" Height="35" PreviewMouseDown="JogP_MouseDown" PreviewMouseUp="JogP_MouseUp"></Button>
+                                    <Button Content="-" FontSize="20" Width="100" Height="35" Margin="10,0,0,0" PreviewMouseDown="JogN_MouseDown" PreviewMouseUp="JogN_MouseUp"></Button>
+                                </StackPanel>
+                            </GroupBox>
+                        </Grid>
+                        <GroupBox Grid.Column="1" Header="2维圆弧插补--圆心+起止点">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid Margin="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <TextBlock Text="圆弧方向："></TextBlock>
+                                        <ComboBox Width="80" Height="20" x:Name="cbDir1" SelectionChanged="cbDir1_SelectionChanged"></ComboBox>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <TextBlock Text="圆心位置："></TextBlock>
+                                        <TextBox Width="50" Height="20"></TextBox>
+                                        <TextBlock Text="mm" Margin="5,0,0,0"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,16,0">
+                                        <TextBox Width="50" Height="20" Margin="0,0,5,0"></TextBox>
+                                        <TextBlock Text="mm"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                                <Button Grid.Column="1" Width="70" Height="100" Content="驱动" FontSize="16"></Button>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="2维圆弧插补--3点定圆" Grid.Column="2">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="2*"></ColumnDefinition>
+                                    <ColumnDefinition></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid Margin="10">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <TextBlock Text="圆弧方向："></TextBlock>
+                                        <ComboBox Width="80" Height="20" x:Name="cbDir2"></ComboBox>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+                                        <TextBlock Text="圆心位置："></TextBlock>
+                                        <TextBox Width="50" Height="20"></TextBox>
+                                        <TextBlock Text="mm" Margin="5,0,0,0"></TextBlock>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,16,0">
+                                        <TextBox Width="50" Height="20" Margin="0,0,5,0"></TextBox>
+                                        <TextBlock Text="mm"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                                <Button Grid.Column="1" Width="70" Height="100" Content="驱动" FontSize="16"></Button>
+                            </Grid>
+                        </GroupBox>
+                    </Grid>
+                    <Grid Grid.Row="3" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="1.7*"></ColumnDefinition>
+                            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="60,0,0,0">
+                            <TextBlock Text="位置模式："></TextBlock>
+                            <ComboBox Width="80" Height="20" x:Name="cbxPosMode"></ComboBox>
+                        </StackPanel>
+                        <GroupBox Header="3维圆弧插补" Grid.Column="1">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.6*"></ColumnDefinition>
+                                    <ColumnDefinition Width="0.4*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition></RowDefinition>
+                                        <RowDefinition></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10">
+                                        <TextBlock Text="轨迹类型："></TextBlock>
+                                        <ComboBox Width="100" Height="20" x:Name="cbType"></ComboBox>
+                                    </StackPanel>
+                                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10">
+                                        <TextBlock Text="弧上点：   "></TextBlock>
+                                        <TextBox Width="80" Height="20"></TextBox>
+                                        <TextBox Width="80" Height="20" Margin="5,0,0,0"></TextBox>
+                                        <TextBox Width="80" Height="20" Margin="5,0,0,0"></TextBox>
+                                        <TextBlock Text="mm" Margin="5,0,0,0"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                                <Button Grid.Column="1" Width="70" Height="45" Content="驱动" FontSize="16"></Button>
+                            </Grid>
+                        </GroupBox>
+                        <Grid Grid.Column="2">
+                            <Grid.RowDefinitions>
+                                <RowDefinition></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Button Content="减速停止" Width="70" Height="50" Click="DecStop_Click"></Button>
+                            <Button Content="立即停止" Width="70" Height="50" Grid.Row="1" Click="SudStop_Click"></Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="圆周运动" FontSize="14">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="80"></RowDefinition>
+                        <RowDefinition Height="80"></RowDefinition>
+                        <RowDefinition Height="80"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5" Grid.ColumnSpan="2">
+                        <TextBlock Text="轴号    " FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <ComboBox Width="70" Height="20" x:Name="CircleAxis" ></ComboBox>
+                    </StackPanel>
+                    <GroupBox Header="定值旋转" Grid.Row="1" Grid.ColumnSpan="2">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="初始速度(度/s): " Margin="10 0 0 0"/>
+                            <TextBox Text="0"  Width="50" x:Name="Acc_startv"/>
+                            <TextBlock Text="驱动速度(度/s): " Margin="20 0 0 0"/>
+                            <TextBox Text="20"  Width="50" x:Name="Acc_speed01"/>
+                            <TextBlock Text="加减速时间(s): " Margin="20 0 0 0"/>
+                            <TextBox Text="2"  Width="50" x:Name="Acc_time"/>
+                            <TextBlock Text="旋转角度(度): " Margin="20 0 0 0"/>
+                            <TextBox Text="360"  Width="50" x:Name="Const_angle"/>
+                            <Button Content="点位驱动" FontSize="14" Width="80" Height="20" Margin="20 0 0 0" Click="Drive1_Click"></Button>
+                            <Button Content="立即停止" FontSize="14" Width="80" Height="20" Margin="20 0 0 0" Click="StopImmediately_Click"></Button>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="连续运动" Grid.Row="2" Grid.ColumnSpan="2">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="初始速度(度/s): " Margin="10 0 0 0"/>
+                            <TextBox Text="0"  Width="50" x:Name="Acc_startv02"/>
+                            <TextBlock Text="驱动速度(度/s): " Margin="20 0 0 0"/>
+                            <TextBox Text="20"  Width="50" x:Name="Acc_speed02"/>
+                            <TextBlock Text="加速时间(s): " Margin="20 0 0 0"/>
+                            <TextBox Text="2"  Width="50" x:Name="Acc_time02"/>
+                            <Button Content="正向旋转" FontSize="14" Width="80" Height="20" Margin="20 0 0 0" PreviewMouseDown="JogP_MouseDown" PreviewMouseUp="JogP_MouseUp"></Button>
+                            <Button Content="反向旋转" FontSize="14" Width="80" Height="20" Margin="20 0 0 0" PreviewMouseDown="JogN_MouseDown" PreviewMouseUp="JogP_MouseUp"></Button>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+            </TabItem>
+            <TabItem Header="直线运动" FontSize="14">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition Height="80"></RowDefinition>
+                        <RowDefinition Height="80"></RowDefinition>
+                        <RowDefinition Height="40"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" Margin="5,5,5,5" Grid.ColumnSpan="2">
+                        <TextBlock Text="轴号    " FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <ComboBox Width="70" Height="20" x:Name="lineAxis" ></ComboBox>
+                    </StackPanel>
+                    <GroupBox Header="定值运动" Grid.Row="1" Grid.ColumnSpan="2">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="初始速度(mm/s): " Margin="10 0 0 0"/>
+                            <TextBox Text="0"  Width="50" x:Name="line_startv"/>
+                            <TextBlock Text="驱动速度(mm/s): " Margin="20 0 0 0"/>
+                            <TextBox Text="20"  Width="50" x:Name="line_speed01"/>
+                            <TextBlock Text="加减速时间(s): " Margin="20 0 0 0"/>
+                            <TextBox Text="2"  Width="50" x:Name="line_time"/>
+                            <TextBlock Text="位移(mm): " Margin="20 0 0 0"/>
+                            <TextBox Text="100"  Width="50" x:Name="Const_Line"/>
+                            <Button Content="点位驱动" FontSize="14" Width="80" Height="20" Margin="20 0 0 0" Click="Line_Drive1_Click"></Button>
+                            <Button Content="立即停止" FontSize="14" Width="80" Height="20" Margin="20 0 0 0" Click="StopImmediately_Click"></Button>
+                        </StackPanel>
+                    </GroupBox>
+                    <GroupBox Header="连续运动" Grid.Row="2" Grid.ColumnSpan="2">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                            <TextBlock Text="初始速度(mm/s): " Margin="10 0 0 0"/>
+                            <TextBox Text="0"  Width="50" x:Name="line_startv02"/>
+                            <TextBlock Text="驱动速度(mm/s): " Margin="20 0 0 0"/>
+                            <TextBox Text="20"  Width="50" x:Name="line_speed02"/>
+                            <TextBlock Text="加速时间(s): " Margin="20 0 0 0"/>
+                            <TextBox Text="2"  Width="50" x:Name="line_time02"/>
+                            <Button Content="正向位移" FontSize="14" Width="80" Height="20" Margin="20 0 0 0" PreviewMouseDown="Line_JogP_MouseDown" PreviewMouseUp="JogP_MouseUp"></Button>
+                            <Button Content="反向位移" FontSize="14" Width="80" Height="20" Margin="20 0 0 0" PreviewMouseDown="Line_JogN_MouseDown" PreviewMouseUp="JogP_MouseUp"></Button>
+                        </StackPanel>
+                    </GroupBox>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <TextBlock Text="逻辑位置(mm)  "></TextBlock>
+                        <TextBox x:Name="LogicalPosition" Width="70" IsReadOnly="True"></TextBox>
+                        <Button Content="轴跟随" x:Name="Follow" Click="Follow_Click" Width="70" Margin="30 0 0 0"></Button>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="IO控制" FontSize="14">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="100"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" Grid.ColumnSpan="2">
+                        <TextBlock Text="从站节点：" FontSize="16"></TextBlock>
+                        <ComboBox Width="100" x:Name="ioNode" SelectionChanged="ioNode_SelectedIndexChanged"></ComboBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,0,0,0" Orientation="Horizontal" Grid.ColumnSpan="2">
+                        <TextBlock Text="输入端口列表：" FontSize="16"></TextBlock>
+                        <TextBlock Text="输出端口列表：" FontSize="16" Margin="200,0,0,0"></TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top" Grid.ColumnSpan="2">
+                        <ListView Margin="20,0,0,0" Width="200" Height="300" x:Name="lvIn"></ListView>
+                        <Grid Margin="110,0,0,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="250"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <ListView Grid.Row="0" Width="200" Height="250" VerticalAlignment="Top" x:Name="lvOut">
+                                <ListView.ItemContainerStyle>
+                                    <Style TargetType="ListViewItem">
+                                        <EventSetter Event="PreviewMouseDoubleClick" Handler="ListViewItem_PreviewMouseDoubleClick"></EventSetter>
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                            </ListView>
+                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                <Button Content="全开" Width="90" Height="30" FontSize="16" Click="AllOn_Click"></Button>
+                                <Button Content="全关" Width="90" Height="30" FontSize="16" Margin="23,0,0,0" Click="AllOff_Click"></Button>
+                            </StackPanel>
+                        </Grid>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="伺服回零" FontSize="14"></TabItem>
+            <TabItem Header="上位机回零" FontSize="14">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="50"></RowDefinition>
+                        <RowDefinition Height="70"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                        <TextBlock Text="轴号：       " VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        <ComboBox Width="100" x:Name="homeAxis"></ComboBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                        <TextBlock Text="回零模式：" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        <ComboBox Width="514" x:Name="homeMode"></ComboBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                        <TextBlock Text="初始速度(mm/s)：" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        <TextBox Width="100" Text="0" x:Name="tbxStartv"></TextBox>
+                        <TextBlock Text="回零高速(mm/s)：" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30,0,0,0"></TextBlock>
+                        <TextBox Width="100" Text="20" x:Name="tbxMaxv"></TextBox>
+                        <TextBlock Text="回零低速(mm/s)：" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30,0,0,0"></TextBlock>
+                        <TextBox Width="100" Text="5" x:Name="tbxLowv"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                        <TextBlock Text="原点偏移(mm)：" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                        <TextBox Width="100" Text="0" x:Name="tbxOffset"></TextBox>
+                        <TextBlock Text="反退距离(mm)：" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30,0,0,0"></TextBlock>
+                        <TextBox Width="100" Text="20" x:Name="tbxBack"></TextBox>
+                        <TextBlock Text="回零加速度(mm/s2)：" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30,0,0,0"></TextBlock>
+                        <TextBox Width="100" Text="10" x:Name="tbxAcc"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="4" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0">
+                        <TextBlock Text="回零状态：" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="30,0,0,0"></TextBlock>
+                        <TextBox Width="100" Text="0" x:Name="tbxStt" IsReadOnly="True"></TextBox>
+                    </StackPanel>
+                    <StackPanel Grid.Row="5" Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,0,0" Height="40">
+                        <TextBlock Text="提示：该回零方案适用于未提供总线协议回零模式的从站" VerticalAlignment="Center" HorizontalAlignment="Center" Background="GreenYellow" TextWrapping="Wrap" Width="200"></TextBlock>
+                        <Button Content="启动回零" Margin="194,0,0,0" Width="80" Click="Home_Click"></Button>
+                        <Button Content="停止回零" Margin="30,0,0,0" Width="80" Click="StopHome_Click"></Button>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Header="SDO操作" FontSize="14"></TabItem>
+            <TabItem Header="帮助" FontSize="14"></TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
