@@ -743,6 +743,11 @@ namespace ADT_MotionControlCard
             my_Card.Follow_Click(2, 1);
         }
 
+        private void StopFollow_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
         private void Status_Click(object sender, EventArgs e)
         {
             Axis_Information_Monitoring axis_Status = new Axis_Information_Monitoring();
