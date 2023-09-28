@@ -746,7 +746,7 @@ namespace ADT_MotionControlCard
         private void StopFollow_Click(object sender, RoutedEventArgs e)
         {
             my_Card.Follow_Click(2, 0);
-            MessageBox.Show("11");
+            MessageBox.Show("321");
         }
 
         private void Status_Click(object sender, EventArgs e)
