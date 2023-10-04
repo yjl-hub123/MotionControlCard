@@ -199,6 +199,7 @@ namespace ADT_MotionControlCard
             //设置停止 停止模式与有效电平
             adt_card_632xe.adt_set_hardlimit_mode(m_iCardIndex, axis, 4, enable, level, mode);
 
+            //功  能：  设置停止信号模式
             adt_card_632xe.adt_set_emergency_stop(m_iCardIndex, 1, level);
 
             mode = mainWindow.cbxUnitMode.SelectedIndex;
